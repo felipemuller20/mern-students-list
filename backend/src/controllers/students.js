@@ -57,10 +57,15 @@ const update = rescue(async (req, res) => {
   return res.status(200).json(getStudent);
 })
 
+const uploadImage = rescue(async (req, res) => {
+  res.status(200).json(req.file);
+})
+
 module.exports = {
   create,
   getAll,
   getAllAlphabetic,
   remove,
   update,
+  uploadImage,
 };
