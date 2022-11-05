@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import StudentContext from './StudentContext';
-import { fetchStudents } from '../services/tasks';
+import { fetchStudents } from '../services/students';
 
 function StudentProvider({ children }) {
   const [students, setStudents] = useState([]);
@@ -12,8 +11,13 @@ function StudentProvider({ children }) {
   };
 
   useEffect(() => {
+    // console.log(students);
     getStudents();
   }, [students]);
+
+  useEffect(() => {
+    getStudents();
+  }, []);
 
   return (
     <StudentContext.Provider
@@ -26,9 +30,5 @@ function StudentProvider({ children }) {
     </StudentContext.Provider>
   );
 }
-
-StudentProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default StudentProvider;
