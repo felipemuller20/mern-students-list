@@ -8,16 +8,30 @@ const validateEntries = (student) => {
   if (!phone) return { code: 404, message: 'Phone not found.' };
   if (!address) return { code: 404, message: 'Address not found.'};
 
+  const { city, uf, region, street } = address;
+  if (!city) return { code: 404, message: 'City not found.' };
+  if (!uf) return { code: 404, message: 'UF not found.' };
+  if (!region) return { code: 404, message: 'Region not found.'};
+  if (!street) return { code: 404, message: 'Street not found.'};
+
+  if (uf.length !== 2) return { code: 400, message: 'UF must have exactly 2 characters' }
+
   return false;
 }
 
 const normalize = (student) => {
   const { name, phone, address, image } = student;
+  const { city, uf, region, street } = address;
 
   const normalizedStudent = {
     name: name.toUpperCase(),
     phone: Number(phone.replace(/\D+/g, '')),
-    address: address.toUpperCase(),
+    address: {
+      city: city.toUpperCase(),
+      uf: uf.toUpperCase(),
+      region: region.toUpperCase(),
+      street: street.toUpperCase(),
+    },
     image: image ? image : '',
   }
 

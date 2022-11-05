@@ -2,7 +2,12 @@ const mongoose = require('mongoose');
 
 const StudentSchema = new mongoose.Schema({
   name: String,
-  address: String,
+  address: {
+    city: String,
+    uf: String,
+    region: String,
+    street: String,
+  },
   phone: Number,
   image: String,
   createdAt: {
