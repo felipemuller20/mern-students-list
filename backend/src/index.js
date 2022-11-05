@@ -15,6 +15,9 @@ const StudentControllers = require('./controllers/students');
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/students', StudentControllers.getAll);
+app.get('/student/alphabetic-order', StudentControllers.getAllAlphabetic);
+
 app.post('/student', StudentControllers.create);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

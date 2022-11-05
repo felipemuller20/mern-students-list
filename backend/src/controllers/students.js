@@ -3,6 +3,16 @@ const Student = require('../models/Student');
 
 const StudentsServices = require('../services/students');
 
+const getAll = rescue(async (_req, res) => {
+  const students = await Student.find({});
+  res.status(200).json(students);
+})
+
+const getAllAlphabetic = rescue(async (_req, res) => {
+  const students = await Student.find({}).sort({ name: 1 });
+  res.status(200).json(students);
+})
+
 const create = rescue(async (req, res) => {
   const { name, address, phone, image } = req.body;
   const newStudent = {
@@ -18,4 +28,6 @@ const create = rescue(async (req, res) => {
 
 module.exports = {
   create,
+  getAll,
+  getAllAlphabetic,
 };
