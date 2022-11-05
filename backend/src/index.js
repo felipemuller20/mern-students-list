@@ -20,4 +20,6 @@ app.get('/student/alphabetic-order', StudentControllers.getAllAlphabetic);
 
 app.post('/student', StudentControllers.create);
 
+app.delete('/student/:id', StudentControllers.remove);
+
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

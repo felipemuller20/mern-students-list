@@ -1,3 +1,6 @@
+const { ObjectId } = require('mongodb');
+const Student = require('../models/Student');
+
 const validateEntries = (student) => {
   const { name, phone, address } = student;
 
@@ -21,7 +24,17 @@ const normalize = (student) => {
   return normalizedStudent;
 }
 
+const validateId = async (id) => {
+  if (!ObjectId.isValid(id)) return { code: 400, message: 'Inserted ID is invalid' };
+
+  const student = await Student.findById(id);
+  if (!student) return { code: 404, message: 'There is no match with this ID' };
+
+  return student;
+};
+
 module.exports = {
   validateEntries,
-  normalize
+  normalize,
+  validateId,
 };

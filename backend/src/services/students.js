@@ -8,6 +8,12 @@ const validateCreation = async (student) => {
   return normalizedStudent;
 }
 
+const validateRemove = async (id) => {
+  const isValid = await validations.validateId(id);
+  return isValid;
+}
+
 module.exports = {
   validateCreation,
+  validateRemove,
 };

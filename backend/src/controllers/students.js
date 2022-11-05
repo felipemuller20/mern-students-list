@@ -26,8 +26,19 @@ const create = rescue(async (req, res) => {
   return res.status(200).json(createdStudent);
 });
 
+const remove = rescue(async (req, res) => {
+  const { id } = req.params;
+
+  const student = await StudentsServices.validateRemove(id);
+  if (student.message) return res.status(student.code).json({ message: student.message });
+
+  await Student.deleteOne({ _id: id });
+  return res.status(200).json(student);
+});
+
 module.exports = {
   create,
   getAll,
   getAllAlphabetic,
+  remove,
 };
