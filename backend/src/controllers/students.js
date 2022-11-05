@@ -36,9 +36,31 @@ const remove = rescue(async (req, res) => {
   return res.status(200).json(student);
 });
 
+const update = rescue(async (req, res) => {
+  const { id } = req.params;
+  const { name, address, phone, image } = req.body;
+
+  const newStudent = {
+    name,
+    address,
+    phone,
+    image,
+  };
+
+  const validatedStudent = await StudentsServices.validateUpdate(id, newStudent);
+  if (validatedStudent.message) {
+    return res.status(validatedStudent.code).json({ message: validatedStudent.message });
+  }
+
+  await Student.updateOne({ _id: id }, validatedStudent)
+  const getStudent = await Student.findById(id);
+  return res.status(200).json(getStudent);
+})
+
 module.exports = {
   create,
   getAll,
   getAllAlphabetic,
   remove,
+  update,
 };

@@ -16,10 +16,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/students', StudentControllers.getAll);
-app.get('/student/alphabetic-order', StudentControllers.getAllAlphabetic);
+app.get('/students/alphabetic-order', StudentControllers.getAllAlphabetic);
 
 app.post('/student', StudentControllers.create);
 
 app.delete('/student/:id', StudentControllers.remove);
+
+app.put('/student/:id', StudentControllers.update);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
