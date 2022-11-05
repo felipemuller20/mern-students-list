@@ -10,7 +10,11 @@ mongoose.connect(process.env.MONGO_DB_URL || 'mongodb://localhost:27017/Students
   useNewUrlParser: true,
 })
 
+const StudentControllers = require('./controllers/students');
+
 app.use(cors());
 app.use(bodyParser.json());
+
+app.post('/student', StudentControllers.create);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
