@@ -14,6 +14,9 @@ const validateRemove = async (id) => {
 };
 
 const validateUpdate = async (id, student) => {
+  const validEntries = await validations.validateEntries(student);
+  if (validEntries) return validEntries;
+
   const isValid = await validations.validateId(id);
   if (isValid.message) return isValid;
 

@@ -30,7 +30,7 @@ const remove = rescue(async (req, res) => {
   const { id } = req.params;
 
   const student = await StudentsServices.validateRemove(id);
-  if (student.message) return res.status(student.code).json({ message: student.message });
+  if (student.message) return res.status(student.code).json(student.message);
 
   await Student.deleteOne({ _id: id });
   return res.status(200).json(student);
@@ -49,7 +49,7 @@ const update = rescue(async (req, res) => {
 
   const validatedStudent = await StudentsServices.validateUpdate(id, newStudent);
   if (validatedStudent.message) {
-    return res.status(validatedStudent.code).json({ message: validatedStudent.message });
+    return res.status(validatedStudent.code).json(validatedStudent.message);
   }
 
   await Student.updateOne({ _id: id }, validatedStudent)
@@ -61,6 +61,13 @@ const uploadImage = rescue(async (req, res) => {
   res.status(200).json(req.file);
 })
 
+const getById = rescue(async (req, res) => {
+  const { id } = req.params;
+
+  const student = await Student.findById(id);
+  res.status(200).json(student);
+})
+
 module.exports = {
   create,
   getAll,
@@ -68,4 +75,5 @@ module.exports = {
   remove,
   update,
   uploadImage,
+  getById,
 };
