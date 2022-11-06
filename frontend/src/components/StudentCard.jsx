@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import blankProfile from '../imgs/blank-profile.png';
+import { deleteStudent } from '../services/students';
 
 function StudentCard({ student }) {
   const { name, createdAt, image, address, phone, _id } = student;
@@ -23,6 +24,7 @@ function StudentCard({ student }) {
       </Link>
       <button
         type="button"
+        onClick={() => deleteStudent(_id)}
       >
         Excluir
       </button>

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Swal from 'sweetalert2';
 
 const PORT = 3001;
 
@@ -18,21 +17,15 @@ export const fetchStudent = async (id) => {
 };
 
 export const createStudent = async (student) => {
-  try {
     const result = await api.post('/student', student);
     return result.data;
-  } catch(error) {
-    console.log(error);
-    Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
-  }
 };
 
 export const updateStudent = async (id, student) => {
-  try {
-    const result = await api.put(`/student/${id}`, student);
-    return result.data;
-  } catch(error) {
-    console.log(error);
-    Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
-  }
+  const result = await api.put(`/student/${id}`, student);
+  return result.data;
+};
+
+export const deleteStudent = async (id) => {
+  await api.delete(`/student/${id}`);
 };

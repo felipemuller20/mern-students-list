@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import { createStudent, updateStudent } from '../services/students';
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function Form({ type, studentId }) {
   const location = useLocation();
+  const history = useNavigate();
+
   const data = location.state?.data;
   const [name, setName] = data ? useState(data.name) : useState('');
   const [phone, setPhone] = data ? useState(data.phone.toString()) : useState('');
@@ -11,6 +14,8 @@ function Form({ type, studentId }) {
   const [uf, setUf] = data ? useState(data.address.uf) : useState('');
   const [region, setRegion] = data ? useState(data.address.region) : useState('');
   const [street, setStreet] = data ? useState(data.address.street) : useState('');
+
+  const delay = (time) => new Promise(resolve => setTimeout(resolve, time));
 
   const handleCreate = async () => {
     const formStudent = {
@@ -23,7 +28,20 @@ function Form({ type, studentId }) {
         street,
       }
     }
-    await createStudent(formStudent);
+    try {
+      await createStudent(formStudent);
+      Swal.fire({
+        icon: 'success',
+        title: 'Aluno cadastrado com sucesso',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      await delay(1500)
+      history('/')
+    } catch(error) {
+      console.log(error);
+      Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
+    }
   }
 
   const handleUpdate = async () => {
@@ -37,7 +55,20 @@ function Form({ type, studentId }) {
         street,
       }
     }
-    await updateStudent(studentId, formStudent);
+    try {
+      await updateStudent(studentId, formStudent);
+      Swal.fire({
+        icon: 'success',
+        title: 'Cadastro atualizado com sucesso',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      await delay(1500)
+      history('/')
+    } catch(error) {
+      console.log(error);
+      Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
+    }
   }
 
   return (
@@ -125,6 +156,13 @@ function Form({ type, studentId }) {
         </button>
         )
       }
+      <Link to="/">
+        <button
+          type="button"
+        >
+          Cancelar
+        </button>
+      </Link>
     </form>
   );
 }

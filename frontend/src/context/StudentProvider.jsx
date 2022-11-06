@@ -11,7 +11,6 @@ function StudentProvider({ children }) {
   };
 
   useEffect(() => {
-    // console.log(students);
     getStudents();
   }, [students]);
 
