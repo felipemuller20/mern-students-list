@@ -5,7 +5,7 @@ function Create() {
   return (
     <div>
       <h1>Formulário de criação</h1>
-      <Form />
+      <Form type="create"/>
     </div>
   );
 }
