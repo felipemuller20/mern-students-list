@@ -10,9 +10,9 @@ function StudentProvider({ children }) {
     setStudents(apiResult);
   };
 
-  useEffect(() => {
-    getStudents();
-  }, [students]);
+  // useEffect(() => {
+  //   getStudents();
+  // }, [students]);
 
   useEffect(() => {
     getStudents();
@@ -23,6 +23,7 @@ function StudentProvider({ children }) {
       value={{
         students,
         setStudents,
+        getStudents,
       }}
     >
       {children}

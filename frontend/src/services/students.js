@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const PORT = 3001;
+const URL = 'http://localhost:3001';
 
 const api = axios.create({
-  baseURL: `http://localhost:${PORT}`,
+  baseURL: URL,
 });
 
 export const fetchStudents = async () => {
@@ -29,3 +29,8 @@ export const updateStudent = async (id, student) => {
 export const deleteStudent = async (id) => {
   await api.delete(`/student/${id}`);
 };
+
+export const uploadImage = async (formData) => {
+  const result = await api.post('/image', formData)
+  return result;
+}

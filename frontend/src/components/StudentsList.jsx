@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import StudentContext from '../context/StudentContext';
 import StudentCard from './StudentCard';
 
 function StudentsList() {
   const studentContext = useContext(StudentContext);
+
+  useEffect(() => {
+    studentContext.getStudents();
+  }, []);
 
   return (
     <div>

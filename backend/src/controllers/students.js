@@ -58,7 +58,8 @@ const update = rescue(async (req, res) => {
 })
 
 const uploadImage = rescue(async (req, res) => {
-  res.status(200).json(req.file);
+  if (req.file) return res.status(200).json(req.file);
+  return res.status(400).json('Upload error');
 })
 
 const getById = rescue(async (req, res) => {
