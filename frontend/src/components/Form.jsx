@@ -85,7 +85,7 @@ function Form({ type, studentId }) {
           }
         }
         try {
-          apiCreateStudent(formStudent);
+         await apiCreateStudent(formStudent);
         } catch (error) {
           Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error');
         }

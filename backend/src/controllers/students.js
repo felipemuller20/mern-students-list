@@ -61,8 +61,17 @@ const update = rescue(async (req, res) => {
     return res.status(validatedStudent.code).json(validatedStudent.message);
   }
 
-  image ? await Student.updateOne({ _id: id }, { name, address, phone, image })
-    : await Student.updateOne({ _id: id }, { name, address, phone })
+  if (image) {
+    const result = await Student.findById(id);
+    const oldImage = result.image;
+    await Student.updateOne({ _id: id }, { name, address, phone, image });
+    await fs.unlink(`./uploads/${oldImage}`, (error) => {
+      if (error) console.error(error);
+    });
+  } else {
+    await Student.updateOne({ _id: id }, { name, address, phone })
+  }
+
   const getStudent = await Student.findById(id);
   return res.status(200).json(getStudent);
 })
