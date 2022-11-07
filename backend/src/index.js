@@ -29,10 +29,10 @@ app.use((req, res, next) => {
 
 app.get('/students', StudentControllers.getAll);
 app.get('/students/alphabetic-order', StudentControllers.getAllAlphabetic);
-app.get('/student/:id', StudentControllers.getById)
+app.get('/student/:id', StudentControllers.getById);
 
 app.post('/student', StudentControllers.create);
-app.post('/image', multer(multerConfig).single('image'), StudentControllers.uploadImage)
+app.post('/image', multer(multerConfig).single('image'), StudentControllers.uploadImage);
 
 app.delete('/student/:id', StudentControllers.remove);
 

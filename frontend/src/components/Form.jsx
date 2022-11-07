@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { createStudent, updateStudent, uploadImage } from '../services/students';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import StudentContext from '../context/StudentContext';
+import { estados } from 'estados-br';
 
 function Form({ type, studentId }) {
   const location = useLocation();
   const history = useNavigate();
 
+  const { token } = useContext(StudentContext);
+
   const data = location.state?.data;
   const [name, setName] = data ? useState(data.name) : useState('');
   const [phone, setPhone] = data ? useState(data.phone.toString()) : useState('');
   const [city, setCity] = data ? useState(data.address.city) : useState('');
-  const [uf, setUf] = data ? useState(data.address.uf) : useState('');
+  const [uf, setUf] = data ? useState(data.address.uf) : useState('AC');
   const [region, setRegion] = data ? useState(data.address.region) : useState('');
   const [street, setStreet] = data ? useState(data.address.street) : useState('');
   const [image, setImage] = useState('');
@@ -19,7 +24,7 @@ function Form({ type, studentId }) {
   const delay = (time) => new Promise(resolve => setTimeout(resolve, time));
 
   const apiCreateStudent = async (formStudent) => {
-    await createStudent(formStudent);
+    await createStudent(formStudent, token);
     Swal.fire({
       icon: 'success',
       title: 'Aluno cadastrado com sucesso',
@@ -31,7 +36,7 @@ function Form({ type, studentId }) {
   }
 
   const apiUpdateStudent = async (formStudent) => {
-    await updateStudent(studentId, formStudent);
+    await updateStudent(studentId, formStudent, token);
     Swal.fire({
       icon: 'success',
       title: 'Cadastro atualizado com sucesso',
@@ -185,13 +190,20 @@ function Form({ type, studentId }) {
         </label>
         <label htmlFor="uf">
           UF:
-          <input
+          {/* <input
             type="text"
             name="uf"
             id="uf"
             value={ uf }
             onChange={ ({ target }) => setUf(target.value) }
-          />
+          /> */}
+          <select name="uf" value={ uf } onChange={({target}) => setUf(target.value)}>
+            {
+              estados.map((estado) => (
+                <option key={estado.sigla} value={estado.sigla}>{estado.sigla}</option>
+              ))
+            }
+          </select>
         </label>
         <label htmlFor="region">
           Bairro:

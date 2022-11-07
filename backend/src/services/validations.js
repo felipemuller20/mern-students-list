@@ -4,19 +4,19 @@ const Student = require('../models/Student');
 const validateEntries = (student) => {
   const { name, phone, address } = student;
 
-  if (!name && !phone) return { code: 404, message: 'Personal data is empty'};
+  if (!name && !phone) return { code: 400, message: 'Personal data is empty'};
 
-  if (!name) return { code: 404, message: 'Name not found.' };
-  if (!phone) return { code: 404, message: 'Phone not found.' };
+  if (!name) return { code: 400, message: 'Field name is empty.' };
+  if (!phone) return { code: 400, message: 'Field phone is empty.' };
 
   const { city, uf, region, street } = address;
 
-  if (!city && !uf && !region && !street) return { code: 404, message: 'Address is empty'};
+  if (!city && !uf && !region && !street) return { code: 400, message: 'Address is empty'};
 
-  if (!city) return { code: 404, message: 'City not found.' };
-  if (!uf) return { code: 404, message: 'UF not found.' };
-  if (!region) return { code: 404, message: 'Region not found.'};
-  if (!street) return { code: 404, message: 'Street not found.'};
+  if (!city) return { code: 400, message: 'Field city is empty.' };
+  if (!uf) return { code: 400, message: 'Field UF is empty.' };
+  if (!region) return { code: 400, message: 'Field region is empty.'};
+  if (!street) return { code: 400, message: 'Field street is empty.'};
 
   if (uf.length !== 2) return { code: 400, message: 'UF must have exactly 2 characters' }
 

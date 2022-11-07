@@ -21,13 +21,13 @@ export const fetchStudent = async (id) => {
   return res.data;
 };
 
-export const createStudent = async (student) => {
-    const result = await api.post('/student', student);
+export const createStudent = async (student, token) => {
+    const result = await api.post('/student', student, { headers: { authorization: token }});
     return result.data;
 };
 
-export const updateStudent = async (id, student) => {
-  const result = await api.put(`/student/${id}`, student);
+export const updateStudent = async (id, student, token) => {
+  const result = await api.put(`/student/${id}`, student, { headers: { authorization: token }});
   return result.data;
 };
 
@@ -39,3 +39,8 @@ export const uploadImage = async (formData) => {
   const result = await api.post('/image', formData)
   return result;
 }
+
+export const setLogin = async (username) => {
+  const result = await api.post('/login', { username });
+  return result.data;
+};
