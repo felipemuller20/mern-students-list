@@ -4,19 +4,20 @@ import { fetchStudents } from '../services/students';
 
 function StudentProvider({ children }) {
   const [students, setStudents] = useState([]);
+  const [att, setAtt] = useState(true)
 
   const getStudents = async () => {
     const apiResult = await fetchStudents();
     setStudents(apiResult);
   };
 
-  // useEffect(() => {
-  //   getStudents();
-  // }, [students]);
-
   useEffect(() => {
     getStudents();
   }, []);
+
+  useEffect(() => {
+    getStudents();
+  }, [att]);
 
   return (
     <StudentContext.Provider
@@ -24,6 +25,8 @@ function StudentProvider({ children }) {
         students,
         setStudents,
         getStudents,
+        att,
+        setAtt,
       }}
     >
       {children}

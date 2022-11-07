@@ -18,49 +18,53 @@ function Form({ type, studentId }) {
 
   const delay = (time) => new Promise(resolve => setTimeout(resolve, time));
 
+  const apiCreateStudent = async (formStudent) => {
+    await createStudent(formStudent);
+    Swal.fire({
+      icon: 'success',
+      title: 'Aluno cadastrado com sucesso',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    await delay(1500)
+    history('/')
+  }
+
   const handleCreate = async (event) => {
     event.preventDefault();
 
-    if (!image) {
-      const formStudent = {
-        name,
-        phone,
-        image,
-        address: {
-          city,
-          uf,
-          region,
-          street,
-        }
-      }
-      try {
-        await createStudent(formStudent);
-        Swal.fire({
-          icon: 'success',
-          title: 'Aluno cadastrado com sucesso',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        await delay(1500)
-        history('/')
-      } catch(error) {
-        console.log(error);
-        Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
-      }
-    }
+    const formData = new FormData();
+    formData.append('image', image);
+
+    let formStudent;
+
     if (image) {
-      const formData = new FormData();
-      formData.append('image', image);
       try {
         const result = await uploadImage(formData);
-        setImage(result.data.filename);
+        formStudent = {
+          name,
+          phone,
+          image: result.data.filename,
+          address: {
+            city,
+            uf,
+            region,
+            street,
+          }
+        }
+        await apiCreateStudent(formStudent);
       } catch (error) {
-        Swal.fire('Upload error', 'Imagem deve ser PNG ou JPG e possuir até 5MB', 'error')
+          if (error.response.status === 500) {
+            Swal.fire(`Error: Image must be PNG or JPG`, 'File size must be less than 5MB', 'error')
+          } else {
+            Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
+          }
       }
-      const formStudent = {
+    } else {
+      formStudent = {
         name,
         phone,
-        image,
+        image: '',
         address: {
           city,
           uf,
@@ -69,20 +73,10 @@ function Form({ type, studentId }) {
         }
       }
       try {
-        await createStudent(formStudent);
-        Swal.fire({
-          icon: 'success',
-          title: 'Aluno cadastrado com sucesso',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        await delay(1500)
-        history('/')
-      } catch(error) {
-        console.log(error);
-        Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
+        apiCreateStudent(formStudent);
+      } catch (error) {
+        Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error');
       }
-
     }
   }
 

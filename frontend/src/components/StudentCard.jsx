@@ -1,5 +1,7 @@
 import React from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import StudentContext from '../context/StudentContext';
 import blankProfile from '../imgs/blank-profile.png';
 import { deleteStudent } from '../services/students';
 
@@ -7,6 +9,14 @@ function StudentCard({ student }) {
   const { name, createdAt, image, address, phone, _id } = student;
   const date = createdAt.substring(0, 10);
   const { city, uf, region, street } = address;
+
+  const { setAtt, att } = useContext(StudentContext);
+
+  const onClick = async () => {
+    const { _id } = student;
+    await deleteStudent(_id);
+    setAtt(!att);
+  };
 
   const URL = 'http://localhost:3001/files'
   return (
@@ -26,7 +36,7 @@ function StudentCard({ student }) {
       </Link>
       <button
         type="button"
-        onClick={() => deleteStudent(_id)}
+        onClick={onClick}
       >
         Excluir
       </button>
