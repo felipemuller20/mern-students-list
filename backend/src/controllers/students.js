@@ -52,7 +52,8 @@ const update = rescue(async (req, res) => {
     return res.status(validatedStudent.code).json(validatedStudent.message);
   }
 
-  await Student.updateOne({ _id: id }, validatedStudent)
+  image ? await Student.updateOne({ _id: id }, { name, address, phone, image })
+    : await Student.updateOne({ _id: id }, { name, address, phone })
   const getStudent = await Student.findById(id);
   return res.status(200).json(getStudent);
 })

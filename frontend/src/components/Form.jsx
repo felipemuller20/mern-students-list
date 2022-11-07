@@ -14,7 +14,7 @@ function Form({ type, studentId }) {
   const [uf, setUf] = data ? useState(data.address.uf) : useState('');
   const [region, setRegion] = data ? useState(data.address.region) : useState('');
   const [street, setStreet] = data ? useState(data.address.street) : useState('');
-  const [image, setImage] = useState('')
+  const [image, setImage] = useState('');
 
   const delay = (time) => new Promise(resolve => setTimeout(resolve, time));
 
@@ -30,21 +30,53 @@ function Form({ type, studentId }) {
     history('/')
   }
 
+  const apiUpdateStudent = async (formStudent) => {
+    await updateStudent(studentId, formStudent);
+    Swal.fire({
+      icon: 'success',
+      title: 'Cadastro atualizado com sucesso',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    await delay(1500)
+    history('/')
+  }
+
   const handleCreate = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData();
-    formData.append('image', image);
-
-    let formStudent;
-
-    if (image) {
-      try {
-        const result = await uploadImage(formData);
+    if (type) { // CREATE
+      const formData = new FormData();
+      formData.append('image', image);
+  
+      let formStudent;
+  
+      if (image) {
+        try {
+          const result = await uploadImage(formData);
+          formStudent = {
+            name,
+            phone,
+            image: result.data.filename,
+            address: {
+              city,
+              uf,
+              region,
+              street,
+            }
+          }
+          await apiCreateStudent(formStudent);
+        } catch (error) {
+            if (error.response.status === 500) {
+              Swal.fire(`Error: Image must be PNG or JPG`, 'File size must be less than 5MB', 'error')
+            } else {
+              Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
+            }
+        }
+      } else {
         formStudent = {
           name,
           phone,
-          image: result.data.filename,
+          image: '',
           address: {
             city,
             uf,
@@ -52,30 +84,56 @@ function Form({ type, studentId }) {
             street,
           }
         }
-        await apiCreateStudent(formStudent);
-      } catch (error) {
-          if (error.response.status === 500) {
-            Swal.fire(`Error: Image must be PNG or JPG`, 'File size must be less than 5MB', 'error')
-          } else {
-            Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
-          }
-      }
-    } else {
-      formStudent = {
-        name,
-        phone,
-        image: '',
-        address: {
-          city,
-          uf,
-          region,
-          street,
+        try {
+          apiCreateStudent(formStudent);
+        } catch (error) {
+          Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error');
         }
       }
-      try {
-        apiCreateStudent(formStudent);
-      } catch (error) {
-        Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error');
+    } else { // UPDATE ------------
+      const formData = new FormData();
+      formData.append('image', image);
+  
+      let formStudent;
+
+      if (image) {
+        try {
+          const result = await uploadImage(formData);
+          formStudent = {
+            name,
+            phone,
+            image: result.data.filename,
+            address: {
+              city,
+              uf,
+              region,
+              street,
+            }
+          }
+          await apiUpdateStudent(formStudent);
+        } catch (error) {
+            if (error.response.status === 500) {
+              Swal.fire(`Error: Image must be PNG or JPG`, 'File size must be less than 5MB', 'error')
+            } else {
+              Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
+            }
+        }
+      } else {
+        formStudent = {
+          name,
+          phone,
+          address: {
+            city,
+            uf,
+            region,
+            street,
+          }
+        }
+        try {
+          await apiUpdateStudent(formStudent);
+        } catch (error) {
+          Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error');
+        }
       }
     }
   }
@@ -188,14 +246,12 @@ function Form({ type, studentId }) {
           type === 'create' ? (
             <button
               type="submit"
-              // onClick={handleCreate}
             >
               Cadastrar
             </button>
           ) : (
             <button
-            type="button"
-            onClick={handleUpdate}
+            type="submit"
           >
             Atualizar cadastro
           </button>
