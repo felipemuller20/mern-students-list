@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import StudentContext from './StudentContext';
-import { fetchStudents } from '../services/students';
+import { fetchStudents, fetchStudentsAlphabetic } from '../services/students';
 
 function StudentProvider({ children }) {
   const [students, setStudents] = useState([]);
@@ -10,6 +10,11 @@ function StudentProvider({ children }) {
     const apiResult = await fetchStudents();
     setStudents(apiResult);
   };
+
+  const getStudentsAlphabetic = async () => {
+    const apiResult = await fetchStudentsAlphabetic();
+    setStudents(apiResult);
+  }
 
   useEffect(() => {
     getStudents();
@@ -27,6 +32,7 @@ function StudentProvider({ children }) {
         getStudents,
         att,
         setAtt,
+        getStudentsAlphabetic,
       }}
     >
       {children}

@@ -1,17 +1,24 @@
 import React, { useContext, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import StudentContext from '../context/StudentContext';
 import StudentCard from './StudentCard';
 
 function StudentsList() {
   const studentContext = useContext(StudentContext);
+  const [selectedOrder, setSelectedOrder] = useState('creation');
 
   useEffect(() => {
-    studentContext.getStudents();
-  }, []);
+    if (selectedOrder === 'creation') {
+      studentContext.getStudents();
+    } else {
+      studentContext.getStudentsAlphabetic();
+    }
+  }, [selectedOrder]);
 
   return (
     <div>
+      <div>
       <Link to="/create">
         <button
           type="button"
@@ -19,6 +26,14 @@ function StudentsList() {
           Adicione um novo aluno
         </button>
       </Link>
+      <form>
+        <label htmlFor="order">Ordenação da lista:</label>
+        <select name="order" id="order" value={ selectedOrder } onChange={({target}) => setSelectedOrder(target.value)}>
+          <option order="creation" value="creation">Data de criação</option>
+          <option order="alphabetic" value="alphabetic">Ordem alfabética</option>
+        </select>
+      </form>
+      </div>
       <div>
         {
           studentContext.students.map((student) => (

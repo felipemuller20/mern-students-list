@@ -11,6 +11,11 @@ export const fetchStudents = async () => {
   return res.data;
 };
 
+export const fetchStudentsAlphabetic = async () => {
+  let res = await api.get('/students/alphabetic-order');
+  return res.data;
+};
+
 export const fetchStudent = async (id) => {
   let res = await api.get(`/student/${id}`);
   return res.data;
