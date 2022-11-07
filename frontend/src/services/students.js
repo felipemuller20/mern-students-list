@@ -21,13 +21,13 @@ export const fetchStudent = async (id) => {
   return res.data;
 };
 
-export const createStudent = async (student, token) => {
-    const result = await api.post('/student', student, { headers: { authorization: token }});
+export const createStudent = async (student) => {
+    const result = await api.post('/student', student);
     return result.data;
 };
 
-export const updateStudent = async (id, student, token) => {
-  const result = await api.put(`/student/${id}`, student, { headers: { authorization: token }});
+export const updateStudent = async (id, student) => {
+  const result = await api.put(`/student/${id}`, student);
   return result.data;
 };
 

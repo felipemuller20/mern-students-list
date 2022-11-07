@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { createStudent, updateStudent, uploadImage } from '../services/students';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import StudentContext from '../context/StudentContext';
 import { estados } from 'estados-br';
 
 function Form({ type, studentId }) {
   const location = useLocation();
   const history = useNavigate();
-
-  const { token } = useContext(StudentContext);
 
   const data = location.state?.data;
   const [name, setName] = data ? useState(data.name) : useState('');
@@ -24,7 +20,7 @@ function Form({ type, studentId }) {
   const delay = (time) => new Promise(resolve => setTimeout(resolve, time));
 
   const apiCreateStudent = async (formStudent) => {
-    await createStudent(formStudent, token);
+    await createStudent(formStudent);
     Swal.fire({
       icon: 'success',
       title: 'Aluno cadastrado com sucesso',
@@ -36,7 +32,7 @@ function Form({ type, studentId }) {
   }
 
   const apiUpdateStudent = async (formStudent) => {
-    await updateStudent(studentId, formStudent, token);
+    await updateStudent(studentId, formStudent);
     Swal.fire({
       icon: 'success',
       title: 'Cadastro atualizado com sucesso',
@@ -47,7 +43,7 @@ function Form({ type, studentId }) {
     history('/')
   }
 
-  const handleCreate = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (type) { // CREATE
       const formData = new FormData();
@@ -144,7 +140,7 @@ function Form({ type, studentId }) {
   }
 
   return (
-    <form onSubmit={handleCreate}>
+    <form onSubmit={handleSubmit}>
       <fieldset>
         <legend>Dados pessoais</legend>
         <label htmlFor="name">

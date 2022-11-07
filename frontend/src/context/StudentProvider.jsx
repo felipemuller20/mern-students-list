@@ -5,8 +5,6 @@ import { fetchStudents, fetchStudentsAlphabetic } from '../services/students';
 function StudentProvider({ children }) {
   const [students, setStudents] = useState([]);
   const [att, setAtt] = useState(true);
-  const [username, setUsername] = useState('');
-  const [token, setToken] = useState('');
 
   const getStudents = async () => {
     const apiResult = await fetchStudents();
@@ -35,10 +33,6 @@ function StudentProvider({ children }) {
         att,
         setAtt,
         getStudentsAlphabetic,
-        setUsername,
-        username,
-        token,
-        setToken,
       }}
     >
       {children}
