@@ -1,5 +1,6 @@
 const rescue = require('express-rescue');
 const Student = require('../models/Student');
+const fs = require('fs');
 
 const StudentsServices = require('../services/students');
 
@@ -31,6 +32,14 @@ const remove = rescue(async (req, res) => {
 
   const student = await StudentsServices.validateRemove(id);
   if (student.message) return res.status(student.code).json(student.message);
+
+  const removedStudent = await Student.findById(id);
+
+  if (removedStudent.image) {
+    await fs.unlink(`./uploads/${removedStudent.image}`, (error) => {
+      if (error) throw error;
+    })
+  }
 
   await Student.deleteOne({ _id: id });
   return res.status(200).json(student);

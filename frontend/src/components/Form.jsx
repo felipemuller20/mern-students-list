@@ -138,134 +138,105 @@ function Form({ type, studentId }) {
     }
   }
 
-  const handleUpdate = async () => {
-    const formStudent = {
-      name,
-      phone,
-      address: {
-        city,
-        uf,
-        region,
-        street,
-      }
-    }
-    try {
-      await updateStudent(studentId, formStudent);
-      Swal.fire({
-        icon: 'success',
-        title: 'Cadastro atualizado com sucesso',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      await delay(1500)
-      history('/')
-    } catch(error) {
-      console.log(error);
-      Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
-    }
-  }
-
   return (
-    <>
-      <form onSubmit={handleCreate}>
-        <fieldset>
-          <legend>Dados pessoais</legend>
-          <label htmlFor="name">
-            Nome completo:
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={ name }
-              onChange={ ({ target }) => setName(target.value) }
-            />
-          </label>
-          <label htmlFor="phone">
-            Telefone:
-            <input
-              type="text"
-              name="phone"
-              id="phone"
-              value={ phone }
-              onChange={ ({target}) => setPhone(target.value) }
-            />
-          </label>
-          <label>
-            Imagem:
-            <input
-              type="file"
-              name="image"
-              onChange={ ({ target }) => setImage(target.files[0]) }
-            />
+    <form onSubmit={handleCreate}>
+      <fieldset>
+        <legend>Dados pessoais</legend>
+        <label htmlFor="name">
+          Nome completo:
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value={ name }
+            onChange={ ({ target }) => setName(target.value) }
+          />
         </label>
-        </fieldset>
-        <fieldset>
-          <legend>Endereço</legend>
-          <label htmlFor="city">
-            Cidade:
-            <input
-              type="text"
-              name="city"
-              id="city"
-              value={ city }
-              onChange={ ({ target }) => setCity(target.value) }
-            />
-          </label>
-          <label htmlFor="uf">
-            UF:
-            <input
-              type="text"
-              name="uf"
-              id="uf"
-              value={ uf }
-              onChange={ ({ target }) => setUf(target.value) }
-            />
-          </label>
-          <label htmlFor="region">
-            Bairro:
-            <input
-              type="text"
-              name="region"
-              id="region"
-              value={ region }
-              onChange={ ({ target }) => setRegion(target.value) }
-            />
-          </label>
-          <label htmlFor="street">
-            Rua:
-            <input
-              type="text"
-              name="street"
-              id="street"
-              value={ street }
-              onChange={ ({ target }) => setStreet(target.value) }
-            />
-          </label>
-        </fieldset>
-        {
-          type === 'create' ? (
-            <button
-              type="submit"
-            >
-              Cadastrar
-            </button>
-          ) : (
-            <button
+        <label htmlFor="phone">
+          Telefone:
+          <input
+            type="text"
+            name="phone"
+            id="phone"
+            value={ phone }
+            onChange={ ({target}) => setPhone(target.value) }
+          />
+        </label>
+        <label>
+          Imagem:
+          <input
+            type="file"
+            name="image"
+            onChange={ ({ target }) => setImage(target.files[0]) }
+          />
+      </label>
+      </fieldset>
+      <fieldset>
+        <legend>Endereço</legend>
+        <label htmlFor="city">
+          Cidade:
+          <input
+            type="text"
+            name="city"
+            id="city"
+            value={ city }
+            onChange={ ({ target }) => setCity(target.value) }
+          />
+        </label>
+        <label htmlFor="uf">
+          UF:
+          <input
+            type="text"
+            name="uf"
+            id="uf"
+            value={ uf }
+            onChange={ ({ target }) => setUf(target.value) }
+          />
+        </label>
+        <label htmlFor="region">
+          Bairro:
+          <input
+            type="text"
+            name="region"
+            id="region"
+            value={ region }
+            onChange={ ({ target }) => setRegion(target.value) }
+          />
+        </label>
+        <label htmlFor="street">
+          Rua:
+          <input
+            type="text"
+            name="street"
+            id="street"
+            value={ street }
+            onChange={ ({ target }) => setStreet(target.value) }
+          />
+        </label>
+      </fieldset>
+      {
+        type === 'create' ? (
+          <button
             type="submit"
           >
-            Atualizar cadastro
+            Cadastrar
           </button>
-          )
-        }
-        <Link to="/">
+        ) : (
           <button
-            type="button"
-          >
-            Cancelar
-          </button>
-        </Link>
-      </form>
-    </>
+          type="submit"
+        >
+          Atualizar cadastro
+        </button>
+        )
+      }
+      <Link to="/">
+        <button
+          type="button"
+        >
+          Cancelar
+        </button>
+      </Link>
+    </form>
   );
 }
 
