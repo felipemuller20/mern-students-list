@@ -5,6 +5,7 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 
+const studentsRouter = require('./routers/student.router');
 const StudentControllers = require('./controllers/students');
 const multerConfig = require('./multerConfig');
 
@@ -27,15 +28,8 @@ app.use((req, res, next) => {
   next();
 })
 
-app.get('/students', StudentControllers.getAll);
-app.get('/students/alphabetic-order', StudentControllers.getAllAlphabetic);
-app.get('/student/:id', StudentControllers.getById);
+app.use(studentsRouter);
 
-app.post('/student', StudentControllers.create);
 app.post('/image', multer(multerConfig).single('image'), StudentControllers.uploadImage);
-
-app.delete('/student/:id', StudentControllers.remove);
-
-app.put('/student/:id', StudentControllers.update);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

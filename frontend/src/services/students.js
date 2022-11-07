@@ -17,30 +17,25 @@ export const fetchStudentsAlphabetic = async () => {
 };
 
 export const fetchStudent = async (id) => {
-  let res = await api.get(`/student/${id}`);
+  let res = await api.get(`/students/${id}`);
   return res.data;
 };
 
 export const createStudent = async (student) => {
-    const result = await api.post('/student', student);
+    const result = await api.post('/students', student);
     return result.data;
 };
 
 export const updateStudent = async (id, student) => {
-  const result = await api.put(`/student/${id}`, student);
+  const result = await api.put(`/students/${id}`, student);
   return result.data;
 };
 
 export const deleteStudent = async (id) => {
-  await api.delete(`/student/${id}`);
+  await api.delete(`/students/${id}`);
 };
 
 export const uploadImage = async (formData) => {
   const result = await api.post('/image', formData)
   return result;
 }
-
-export const setLogin = async (username) => {
-  const result = await api.post('/login', { username });
-  return result.data;
-};
