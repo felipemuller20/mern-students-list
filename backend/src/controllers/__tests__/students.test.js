@@ -1,2 +1,0 @@
-const studentControllers = require('../students');
-
