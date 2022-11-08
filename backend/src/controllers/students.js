@@ -24,11 +24,12 @@ const create = rescue(async (req, res) => {
   if (student.message) return res.status(student.code).json(student.message);
 
   const createdStudent = await Student.create(student);
-  return res.status(200).json(createdStudent);
+  return res.status(201).json(createdStudent);
 });
 
 const remove = rescue(async (req, res) => {
   const { id } = req.params;
+  console.log(id);
 
   const student = await StudentsServices.validateRemove(id);
   if (student.message) return res.status(student.code).json(student.message);
