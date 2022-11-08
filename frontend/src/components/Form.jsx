@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
-import { createStudent, updateStudent, uploadImage } from '../services/students';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { estados } from 'estados-br';
+import { handleSubmit } from '../utils/crudUtils';
 
 function Form({ type, studentId }) {
   const location = useLocation();
@@ -17,130 +16,8 @@ function Form({ type, studentId }) {
   const [street, setStreet] = data ? useState(data.address.street) : useState('');
   const [image, setImage] = useState('');
 
-  const delay = (time) => new Promise(resolve => setTimeout(resolve, time));
-
-  const apiCreateStudent = async (formStudent) => {
-    await createStudent(formStudent);
-    Swal.fire({
-      icon: 'success',
-      title: 'Aluno cadastrado com sucesso',
-      showConfirmButton: false,
-      timer: 1500
-    })
-    await delay(1500)
-    history('/home')
-  }
-
-  const apiUpdateStudent = async (formStudent) => {
-    await updateStudent(studentId, formStudent);
-    Swal.fire({
-      icon: 'success',
-      title: 'Cadastro atualizado com sucesso',
-      showConfirmButton: false,
-      timer: 1500
-    })
-    await delay(1500)
-    history('/home')
-  }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (type) { // CREATE
-      const formData = new FormData();
-      formData.append('image', image);
-  
-      let formStudent;
-  
-      if (image) {
-        try {
-          const result = await uploadImage(formData);
-          formStudent = {
-            name,
-            phone,
-            image: result.data.filename,
-            address: {
-              city,
-              uf,
-              region,
-              street,
-            }
-          }
-          await apiCreateStudent(formStudent);
-        } catch (error) {
-            if (error.response.status === 500) {
-              Swal.fire(`Arquivos suportados: PNG ou JPG`, 'Tamanho máximo do arquivo: 3MB', 'error')
-            } else {
-              Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
-            }
-        }
-      } else {
-        formStudent = {
-          name,
-          phone,
-          image: '',
-          address: {
-            city,
-            uf,
-            region,
-            street,
-          }
-        }
-        try {
-         await apiCreateStudent(formStudent);
-        } catch (error) {
-          Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error');
-        }
-      }
-    } else { // UPDATE ------------
-      const formData = new FormData();
-      formData.append('image', image);
-  
-      let formStudent;
-
-      if (image) {
-        try {
-          const result = await uploadImage(formData);
-          formStudent = {
-            name,
-            phone,
-            image: result.data.filename,
-            address: {
-              city,
-              uf,
-              region,
-              street,
-            }
-          }
-          await apiUpdateStudent(formStudent);
-        } catch (error) {
-            if (error.response.status === 500) {
-              Swal.fire(`Error: Image must be PNG or JPG`, 'File size must be less than 3MB', 'error')
-            } else {
-              Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
-            }
-        }
-      } else {
-        formStudent = {
-          name,
-          phone,
-          address: {
-            city,
-            uf,
-            region,
-            street,
-          }
-        }
-        try {
-          await apiUpdateStudent(formStudent);
-        } catch (error) {
-          Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error');
-        }
-      }
-    }
-  }
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(event) => handleSubmit(event, image, history, name, phone, city, uf, region, street, studentId, type)}>
       <fieldset>
         <legend>Dados pessoais</legend>
         <label htmlFor="name">
@@ -186,13 +63,6 @@ function Form({ type, studentId }) {
         </label>
         <label htmlFor="uf">
           UF:
-          {/* <input
-            type="text"
-            name="uf"
-            id="uf"
-            value={ uf }
-            onChange={ ({ target }) => setUf(target.value) }
-          /> */}
           <select name="uf" value={ uf } onChange={({target}) => setUf(target.value)}>
             {
               estados.map((estado) => (

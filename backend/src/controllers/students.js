@@ -29,7 +29,6 @@ const create = rescue(async (req, res) => {
 
 const remove = rescue(async (req, res) => {
   const { id } = req.params;
-  console.log(id);
 
   const student = await StudentsServices.validateRemove(id);
   if (student.message) return res.status(student.code).json(student.message);
@@ -65,14 +64,23 @@ const update = rescue(async (req, res) => {
   if (image) {
     const result = await Student.findById(id);
     const oldImage = result.image;
-    await Student.updateOne({ _id: id }, { name, address, phone, image });
+    await Student.updateOne({ _id: id }, { 
+      name: validatedStudent.name,
+      address: validatedStudent.address,
+      phone: validatedStudent.phone,
+      image,
+    });
     if (oldImage) {
       await fs.unlink(`./uploads/${oldImage}`, (error) => {
         if (error) console.error(error);
       });
     }
   } else {
-    await Student.updateOne({ _id: id }, { name, address, phone })
+    await Student.updateOne({ _id: id }, { 
+      name: validatedStudent.name,
+      address: validatedStudent.address, 
+      phone: validatedStudent.phone,
+    })
   }
 
   const getStudent = await Student.findById(id);
