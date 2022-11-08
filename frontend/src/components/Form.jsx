@@ -28,7 +28,7 @@ function Form({ type, studentId }) {
       timer: 1500
     })
     await delay(1500)
-    history('/')
+    history('/home')
   }
 
   const apiUpdateStudent = async (formStudent) => {
@@ -40,7 +40,7 @@ function Form({ type, studentId }) {
       timer: 1500
     })
     await delay(1500)
-    history('/')
+    history('/home')
   }
 
   const handleSubmit = async (event) => {
@@ -68,7 +68,7 @@ function Form({ type, studentId }) {
           await apiCreateStudent(formStudent);
         } catch (error) {
             if (error.response.status === 500) {
-              Swal.fire(`Error: Image must be PNG or JPG`, 'File size must be less than 5MB', 'error')
+              Swal.fire(`Arquivos suportados: PNG ou JPG`, 'Tamanho máximo do arquivo: 3MB', 'error')
             } else {
               Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
             }
@@ -114,7 +114,7 @@ function Form({ type, studentId }) {
           await apiUpdateStudent(formStudent);
         } catch (error) {
             if (error.response.status === 500) {
-              Swal.fire(`Error: Image must be PNG or JPG`, 'File size must be less than 5MB', 'error')
+              Swal.fire(`Error: Image must be PNG or JPG`, 'File size must be less than 3MB', 'error')
             } else {
               Swal.fire(`Erro ${error.response.status}`, error.response.data, 'error')
             }
@@ -237,7 +237,7 @@ function Form({ type, studentId }) {
         </button>
         )
       }
-      <Link to="/">
+      <Link to="/home">
         <button
           type="button"
         >
