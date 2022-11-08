@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import './login.css';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -30,35 +31,38 @@ function Login() {
   }
 
   return(
-    <div>
+    <div className='login-page'>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='username'>
-          E-mail:
+      <form onSubmit={handleSubmit} className='login-form'>
+        <label htmlFor='username' className='login-label'>
+          E-mail
+        </label>
           <input
+            className='login-input'
             type="text"
             name="username"
             value={ username }
             onChange={({ target }) => setUsername(target.value)}
             placeholder="teste@teste.com"
           />
+        <label htmlFor='password' className='login-label'>
+          Senha
         </label>
-        <label htmlFor='password'>
-          Senha:
           <input
+            className='login-input'
             type="password"
             name="password"
             value={ password }
             onChange={({ target }) => setPassword(target.value)}
           />
-        </label>
-        <button type="submit">
+        <button type="submit" className='login-button'>
           Entrar
         </button>
-        <p>
+        <p className='login-warning'>
           Não utilize sua senha verdadeira! Esse projeto é de cunho educativo.
         </p>
       </form>
+      <h3 className="login-footer">Created by Felipe Müller</h3>
     </div>
   )
 }
