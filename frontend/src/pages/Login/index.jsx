@@ -25,8 +25,7 @@ function Login() {
       await delay(1500)
       history('/home')
     } catch(error) {
-      console.log(error)
-      Swal.fire(`${error}`, error, 'error')
+      Swal.fire(`${error}`, error.status, 'error')
     }
   }
 
@@ -43,7 +42,7 @@ function Login() {
             name="username"
             value={ username }
             onChange={({ target }) => setUsername(target.value)}
-            placeholder="teste@teste.com"
+            placeholder="meu_nome@email.com"
           />
         <label htmlFor='password' className='login-label'>
           Senha

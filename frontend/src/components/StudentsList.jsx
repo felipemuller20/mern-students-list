@@ -18,28 +18,30 @@ function StudentsList() {
 
   return (
     <div>
-      <div>
-      <Link to="/create">
-        <button
-          type="button"
-        >
-          Adicione um novo aluno
-        </button>
-      </Link>
-      <form>
+      <div className='create-button-container'>
+        <Link to="/create">
+          <button
+            type="button"
+          >
+            Adicione um novo aluno
+          </button>
+        </Link>
+      </div>
+      <form className='list-form'>
         <label htmlFor="order">Ordenação da lista:</label>
         <select name="order" id="order" value={ selectedOrder } onChange={({target}) => setSelectedOrder(target.value)}>
           <option order="creation" value="creation">Data de criação</option>
           <option order="alphabetic" value="alphabetic">Ordem alfabética</option>
         </select>
       </form>
-      </div>
-      <div>
-        {
-          studentContext.students.map((student) => (
-            <StudentCard student={student} key={student._id}/>
-          ))
-        }
+      <div className="outter-list-container">
+        <div className='list-container'>
+          {
+            studentContext.students.map((student) => (
+              <StudentCard student={student} key={student._id}/>
+            ))
+          }
+        </div>
       </div>
     </div>
   )

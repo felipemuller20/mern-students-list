@@ -20,26 +20,32 @@ function StudentCard({ student }) {
 
   const URL = 'http://localhost:3001/files'
   return (
-    <div>
-      <h3>{ name }</h3>
-      <h4>{ phone }</h4>
-      <p>{ `${city} - ${uf}` }</p>
-      <p>{ `Rua ${street}, bairro ${region}` }</p>
-      <span>{ `Criado em: ${date}` }</span>
+    <div className="card-container">
+      <div className="student-info">
+        <p className="student-name">{ name }</p>
+        <p className="student-phone">{ `Tel: ${phone}` }</p>
+        <p className="student-city">{ `${city} - ${uf}` }</p>
+        <p className="student-street">{ `Rua ${street}, bairro ${region}` }</p>
+        <p className="student-date">{ `Criado em: ${date}` }</p>
+      </div>
       <img src={ image ? `${URL}/${image}` : blankProfile } alt={`${name} profile picture`}/>
-      <Link to={`/edit/${_id}`} state={{ data: student }}>
+      <div className="student-buttons">
+        <Link to={`/edit/${_id}`} state={{ data: student }}>
+          <button
+            className="student-edit-button"
+            type="button"
+          >
+            Editar
+          </button>
+        </Link>
         <button
+          className="student-remove-button"
           type="button"
+          onClick={onClick}
         >
-          Editar
+          Excluir
         </button>
-      </Link>
-      <button
-        type="button"
-        onClick={onClick}
-      >
-        Excluir
-      </button>
+      </div>
     </div>
   )
 }
