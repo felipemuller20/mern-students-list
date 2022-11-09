@@ -27,7 +27,6 @@ function StudentProvider({ children }) {
     const normalized = toStringName.toUpperCase();
   
     const students = await apiResult.filter((student) => student.name.startsWith(normalized));
-    console.log(students);
     setStudents(students);
   }
 

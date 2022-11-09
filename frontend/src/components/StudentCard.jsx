@@ -18,7 +18,10 @@ function StudentCard({ student }) {
     setAtt(!att);
   };
 
-  const URL = 'http://localhost:3001/files'
+  const HOST = import.meta.env.REACT_APP_API_HOST || 'localhost:3001';
+  const PROTOCOL = import.meta.env.REACT_APP_API_PROTOCOL || 'http';
+  const URL = `${PROTOCOL}://${HOST}/files`;
+
   return (
     <div className="card-container">
       <div className="student-info">

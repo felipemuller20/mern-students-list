@@ -44,10 +44,11 @@ function Form({ type, studentId }) {
           value={ phone }
           onChange={ ({target}) => setPhone(target.value) }
         />
-        <label>
+        <label htmlFor='image'>
           Imagem:
         </label>
         <input
+          id="image"
           type="file"
           name="image"
           onChange={ ({ target }) => setImage(target.files[0]) }
