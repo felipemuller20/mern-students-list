@@ -21,14 +21,15 @@ function StudentsList() {
       <div className='create-button-container'>
         <Link to="/create">
           <button
+            className='student-create-button'
             type="button"
           >
-            Adicione um novo aluno
+            Adicionar novo aluno
           </button>
         </Link>
       </div>
       <form className='list-form'>
-        <label htmlFor="order">Ordenação da lista:</label>
+        <label htmlFor="order">Ordenação da lista</label>
         <select name="order" id="order" value={ selectedOrder } onChange={({target}) => setSelectedOrder(target.value)}>
           <option order="creation" value="creation">Data de criação</option>
           <option order="alphabetic" value="alphabetic">Ordem alfabética</option>

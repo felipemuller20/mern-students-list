@@ -7,7 +7,6 @@
 }
 
 .outter-list-container {
-  margin-top: 10vh;
   background-color: rgba(247, 247, 247, 0.503);
   border-radius: 10px;
   padding: 10px;
@@ -89,7 +88,38 @@
 }
 
 img {
-  width: 8vw;
+  width: 10vw;
   height: 15vh;
   border-radius: 5px;
 }
+
+.list-form {
+  margin-top: 5vh;
+  margin-bottom: 10px;
+}
+
+.list-form label {
+  margin: 0 10px;
+}
+
+.list-form select {
+  width: 30vh;
+  text-align: center;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 5px;
+  border: 0 none;
+}
+
+.student-create-button {
+  padding: 10px;
+  font-size: large;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 0 none;
+}
+
+.student-create-button:hover {
+  background-color: rgb(212, 211, 211);
+}
+
