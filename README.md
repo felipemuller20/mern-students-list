@@ -5,9 +5,9 @@
 O **Students List** é um projeto Front-end e Back-end MERN (MongoDB, Express, React e Node) que realiza um CRUD (_Create_, _Read_, _Update_ e _Delete_) de alunos. As informações armazenadas no banco de dados são: nome, telefone, endereço e uma imagem, que pode ser adicionada por meio de um Upload realizado no Front-end.
 
 - Todas as informações dos alunos são armazenadas no banco de dados.
-- Na pagina `/home`, acima da lista de alunos, há um botão que leva para um formulário para adicionar novos alunos na lista.
-- Todas as informações dos alunos podem ser editadas, clicando no botão de edição.
-- Qualquer aluno pode ser removido da lista, clicando no botão de exclusão.
+- Na pagina `/home`, acima da lista de alunos, há um botão que leva para um formulário para adicionar novos alunos na lista. Com a exceção da imagem, todos os campos são obrigatórios para a criação de um aluno.
+- Todas as informações dos alunos podem ser editadas, clicando no botão de edição que está ao lado das informações de cada aluno.
+- Qualquer aluno pode ser removido da lista, clicando no botão de exclusão, que está ao lado das informações de cada aluno.
 - Na listagem dos alunos existem três filtros:
   - Visualizar em ordem alfabética;
   - Visualizar em ordem de criação;
@@ -23,14 +23,17 @@ O _deploy_ da aplicação front-end foi realizado utilizando `surge` e pode ser 
 
 Ao acessar a página, você irá se deparar com um formulário de login. O projeto não armazena as informações de login da pessoa usuária, porém, para _logar_, você precisará informar **qualquer e-mail válido** e **qualquer senha com pelo menos 6 dígitos**.
 
-Exemplo de usuário válido:
+Exemplos de usuário e senha válidos:
 
 ```bash
 felipe@email.com
 123456
+
+teste@exemplo.com.br
+senha1
 ```
 
-A API e o banco de dados estão armazenados no [railway](https://astute-silver-production.up.railway.app/students).
+A API e o banco de dados estão hospedados no [railway](https://astute-silver-production.up.railway.app/students).
 
 ## 💻 Executando o projeto localmente
 
@@ -72,7 +75,7 @@ Se preferir, utilize o Yarn com o seguinte comando:
 yarn install
 ```
 
-Abra o navegador com o servidor, executando o código:
+Ligue o navegador com o servidor, executando o código abaixo:
 
 ```bash
 npm run dev
@@ -100,11 +103,11 @@ Execute o servidor Back-end:
 npm start
 ```
 
-Executando todos os comandos acima, por padrão você acessará o servidor local `localhost:3001` e o servidor mongoDB `mongodb://localhost:27017/StudentsList`. Caso necessite acessar por uma porta diferente, ou alterar as credenciais do banco de dados, você pode criar um arquivo `.env` e adicionar suas credenciais. Utilize o arquivo `.env-example` como guia para nomear suas variáveis.
+Executando todos os comandos acima, por padrão você acessará o servidor local `localhost:3001` e o servidor mongoDB `mongodb://localhost:27017/StudentsList`. Caso necessite acessar por uma porta diferente, ou alterar as credenciais do banco de dados, você pode criar um arquivo `.env` no caminho `/backend/.env` e adicionar suas credenciais. Utilize o arquivo `.env-example` como guia para nomear suas variáveis.
 
 ## 🔧 Executando os testes da aplicação
 
-Para executar os testes da aplicação, certifique-se de estar no diretório `backend` ou `frontend` e execute o comando abaixo:
+Para executar os testes da aplicação, certifique-se de estar no diretório `backend`, para realizar os testes do backend, ou `frontend`, para executar os testes do frontend, e digite o comando abaixo:
 
 ```bash
 npm rum test
