@@ -1,12 +1,11 @@
 import React from 'react';
-import { render, screen, waitFor } from "@testing-library/react";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import { expect, it } from "vitest";
 import App from "./App";
 import Create from './pages/Create';
 import Edit from './pages/Edit'
 import StudentContext from "./context/StudentContext";
-import userEvent from '@testing-library/user-event';
 import Home from "./pages/Home";
 
 
