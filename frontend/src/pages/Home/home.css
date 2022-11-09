@@ -7,36 +7,39 @@
 }
 
 .outter-list-container {
-  background-color: rgba(248, 240, 240, 0.322);
+  margin-top: 10vh;
+  background-color: rgba(247, 247, 247, 0.503);
   border-radius: 10px;
   padding: 10px;
   border: 1px solid white;
   width: 55vw;
-  max-height: 80vh;
+  box-sizing: border-box;
 }
 
 .list-container {
-  width: 55.5vw;
-  overflow:scroll;
-  overflow-x:hidden;
+  overflow:auto;
+  overflow-x:auto;
   max-height: 80.5vh;
+  min-height: 50vh;
 }
 
 .card-container {
   border: 0 none;
   margin: 10px;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
   background-color: #403f3f;
-  height: 20vh;
+  max-height: 30vh;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  overflow: auto;
 }
 
 .student-info {
   width: 25vw;
+  overflow: auto;
 }
 
 .card-container p {
@@ -75,12 +78,8 @@
   border-radius: 8px;
 }
 
-.student-remove-button {
-  background-color: rgba(251, 27, 27, 0.704);
-  cursor: pointer;
-}
-
 .student-remove-button:hover {
+  cursor: pointer;
   background-color: rgba(248, 91, 91, 0.704);
 }
 
