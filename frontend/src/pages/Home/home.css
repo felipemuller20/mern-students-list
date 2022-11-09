@@ -111,6 +111,19 @@ img {
   border: 0 none;
 }
 
+.filter-name {
+  width: 35vh;
+  text-align: center;
+  padding: 3px;
+  border-radius: 5px;
+  border: 0 none;
+  margin-bottom: 1vh;
+}
+
+.filter-name-label {
+  margin: 10px;
+}
+
 .student-create-button {
   padding: 10px;
   font-size: large;

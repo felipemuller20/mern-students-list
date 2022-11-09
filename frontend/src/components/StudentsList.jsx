@@ -7,14 +7,30 @@ import StudentCard from './StudentCard';
 function StudentsList() {
   const studentContext = useContext(StudentContext);
   const [selectedOrder, setSelectedOrder] = useState('creation');
+  const [nameFilter, setNameFilter] = useState('');
 
   useEffect(() => {
     if (selectedOrder === 'creation') {
       studentContext.getStudents();
+      filterByName()
     } else {
       studentContext.getStudentsAlphabetic();
+      filterByName()
     }
   }, [selectedOrder]);
+
+  const filterByName = () => {
+    if (nameFilter.length > 0) {
+      studentContext.getStudentByName(nameFilter, selectedOrder);
+    } else {
+      selectedOrder === 'creation' ?
+        studentContext.getStudents() : studentContext.getStudentsAlphabetic();
+    }
+  }
+
+  useEffect(() => {
+    filterByName();
+  }, [nameFilter])
 
   return (
     <div>
@@ -35,6 +51,15 @@ function StudentsList() {
           <option order="alphabetic" value="alphabetic">Ordem alfabética</option>
         </select>
       </form>
+      <label className='filter-name-label' htmlFor="filterName">Filtro por nome</label>
+      <input
+        className='filter-name'
+        name="filterName"
+        type="text"
+        value={nameFilter}
+        onChange={({target}) => setNameFilter(target.value)}
+        placeholder="Digite o nome que deseja buscar"
+      />
       <div className="outter-list-container">
         <div className='list-container'>
           {
