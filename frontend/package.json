@@ -10,9 +10,6 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@babel/plugin-syntax-jsx": "^7.18.6",
-    "@babel/preset-env": "^7.20.2",
-    "@babel/preset-react": "^7.18.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^12.0.0",
     "axios": "^1.1.3",
