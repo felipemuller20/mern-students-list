@@ -5,7 +5,7 @@
 O **Students List** é um projeto Front-end e Back-end MERN (MongoDB, Express, React e Node) que realiza um CRUD (_Create_, _Read_, _Update_ e _Delete_) de alunos. As informações armazenadas no banco de dados são: nome, telefone, endereço e uma imagem, que pode ser adicionada por meio de um Upload realizado no Front-end.
 
 - Todas as informações dos alunos são armazenadas no banco de dados.
-- Acima da lista de alunos há um botão que leva para um formulário para adicionar novos alunos na lista.
+- Na pagina `/home`, acima da lista de alunos, há um botão que leva para um formulário para adicionar novos alunos na lista.
 - Todas as informações dos alunos podem ser editadas, clicando no botão de edição.
 - Qualquer aluno pode ser removido da lista, clicando no botão de exclusão.
 - Na listagem dos alunos existem três filtros:
@@ -119,22 +119,23 @@ Os pontos de melhoria do projeto que estão mapeados e poderão ser desenvolvido
 - Utilizar o JWT para autenticar pessoas usuárias, liberando Edição, Criação e Exclusão de alunos apenas para administradores;
 - Adicionar mais validações para os campos de informações dos alunos;
 - Adicionar mais informações de cada aluno no formulário e banco de dados, adicionando um página front-end contendo os detalhes do aluno pesquisado;
+- Mostrar ícone de carregamento enquanto a página faz uma busca à API;
 - Aumentar a cobertura dos testes.
 
 ## Principais tecnologias utilizadas
 
-- React.js;
-- Vite;
-- Vitest;
-- React Testing Library;
-- Axios;
-- React Router Dom;
-- Context API;
-- CSS;
-- Node.js;
-- Express;
-- Mocha;
-- Chai;
-- Mongo;
-- Mongoose;
-- ESLint.
+- React.js como framework javascript;
+- Vite como bundler;
+- Vitest para testes front-end;
+- React Testing Library para testes front-end;
+- Axios para requisições http no front-end;
+- React Router Dom para rotear a aplicação front-end;
+- Context API como gerenciador do estado da aplicação;
+- CSS na estilização do projeto;
+- Node.js para o desenvolvimento back-end;
+- Express como framework Node.js;
+- Mocha para testes back-end;
+- Chai para testes back-end;
+- MongoDB como banco de dados para armazenar as informações coletadas;
+- Mongoose como ODM para realizar as operações no DB;
+- ESLint como linter para qualidade e padronização do código.
