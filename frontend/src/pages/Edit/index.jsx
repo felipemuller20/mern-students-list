@@ -7,7 +7,7 @@ function Edit() {
 
   return (
     <>
-      <h1>Atualizar Cadastro</h1>
+      <h1 className="form-title">Atualizar Cadastro</h1>
       <Form studentId={ params.id } />
     </>
   );

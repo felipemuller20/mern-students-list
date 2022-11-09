@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { estados } from 'estados-br';
 import { handleSubmit } from '../utils/crudUtils';
+import './form.css';
 
 function Form({ type, studentId }) {
   const location = useLocation();
@@ -17,42 +18,47 @@ function Form({ type, studentId }) {
   const [image, setImage] = useState('');
 
   return (
-    <form onSubmit={(event) => handleSubmit(event, image, history, name, phone, city, uf, region, street, studentId, type)}>
+    <form 
+      onSubmit={(event) => handleSubmit(event, image, history, name, phone, city, uf, region, street, studentId, type)}
+      className='infos-form'
+    >
       <fieldset>
         <legend>Dados pessoais</legend>
         <label htmlFor="name">
           Nome completo:
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={ name }
-            onChange={ ({ target }) => setName(target.value) }
-          />
         </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={ name }
+          onChange={ ({ target }) => setName(target.value) }
+        />
         <label htmlFor="phone">
           Telefone:
-          <input
-            type="text"
-            name="phone"
-            id="phone"
-            value={ phone }
-            onChange={ ({target}) => setPhone(target.value) }
-          />
         </label>
+        <input
+          type="text"
+          name="phone"
+          id="phone"
+          value={ phone }
+          onChange={ ({target}) => setPhone(target.value) }
+        />
         <label>
           Imagem:
-          <input
-            type="file"
-            name="image"
-            onChange={ ({ target }) => setImage(target.files[0]) }
-          />
-      </label>
+        </label>
+        <input
+          type="file"
+          name="image"
+          onChange={ ({ target }) => setImage(target.files[0]) }
+        />
       </fieldset>
+
       <fieldset>
         <legend>Endereço</legend>
         <label htmlFor="city">
           Cidade:
+        </label>          
           <input
             type="text"
             name="city"
@@ -60,9 +66,9 @@ function Form({ type, studentId }) {
             value={ city }
             onChange={ ({ target }) => setCity(target.value) }
           />
-        </label>
         <label htmlFor="uf">
           UF:
+        </label>
           <select name="uf" value={ uf } onChange={({target}) => setUf(target.value)}>
             {
               estados.map((estado) => (
@@ -70,19 +76,19 @@ function Form({ type, studentId }) {
               ))
             }
           </select>
-        </label>
         <label htmlFor="region">
           Bairro:
-          <input
-            type="text"
-            name="region"
-            id="region"
-            value={ region }
-            onChange={ ({ target }) => setRegion(target.value) }
-          />
         </label>
+        <input
+          type="text"
+          name="region"
+          id="region"
+          value={ region }
+          onChange={ ({ target }) => setRegion(target.value) }
+        />
         <label htmlFor="street">
           Rua:
+        </label>
           <input
             type="text"
             name="street"
@@ -90,25 +96,27 @@ function Form({ type, studentId }) {
             value={ street }
             onChange={ ({ target }) => setStreet(target.value) }
           />
-        </label>
       </fieldset>
       {
         type === 'create' ? (
           <button
+            className="form-submit-btn"
             type="submit"
           >
             Cadastrar
           </button>
         ) : (
           <button
-          type="submit"
-        >
-          Atualizar cadastro
-        </button>
+            className="form-submit-btn"
+            type="submit"
+          >
+            Atualizar cadastro
+          </button>
         )
       }
       <Link to="/home">
         <button
+          className="form-cancel-btn"
           type="button"
         >
           Cancelar
