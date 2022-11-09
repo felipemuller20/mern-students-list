@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import StudentContext from '../context/StudentContext';
 import blankProfile from '../imgs/blank-profile.png';
 import { deleteStudent } from '../services/students';
+import { URL as SERVER_URL } from '../utils/api';
 
 function StudentCard({ student }) {
   const { name, createdAt, image, address, phone, _id } = student;
@@ -18,9 +19,9 @@ function StudentCard({ student }) {
     setAtt(!att);
   };
 
-  const HOST = import.meta.env.REACT_APP_API_HOST || 'localhost:3001';
-  const PROTOCOL = import.meta.env.REACT_APP_API_PROTOCOL || 'http';
-  const URL = `${PROTOCOL}://${HOST}/files`;
+  // const SERVER_URL = import.meta.env.REACT_APP_URL || 'http://localhost:3001';
+
+  const URL = `${SERVER_URL}/files`;
 
   return (
     <div className="card-container">

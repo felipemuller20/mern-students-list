@@ -1,8 +1,7 @@
 import axios from 'axios';
+import { URL } from '../utils/api';
 
-const HOST = import.meta.env.REACT_APP_API_HOST || 'localhost:3001';
-const PROTOCOL = import.meta.env.REACT_APP_API_PROTOCOL || 'http';
-const URL = `${PROTOCOL}://${HOST}`;
+// const URL = 'https://astute-silver-production.up.railway.app/';
 
 const api = axios.create({
   baseURL: URL,
