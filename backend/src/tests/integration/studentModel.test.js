@@ -7,7 +7,7 @@ const server = require('../../app');
 const studentMock = require('../utils/mocks');
 const connect = require('../../connection/connect');
 
-connect.connectToDatabase(process.env.MONGO_TEST_URI || 'mongodb://localhost:27017/StudentsListTest')
+connect.connectToDatabase(process.env.MONGO_TEST_URL || 'mongodb://localhost:27017/StudentsListTest')
 
 chai.use(chaiHttp);
 
